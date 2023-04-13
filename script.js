@@ -24,6 +24,26 @@ function calculateResults() {
         P: 0
     };
 
+    // 검증 로직 추가 시작
+    let allQuestionsAnswered = true;
+    const questions = quiz.querySelectorAll(".question");
+
+    for (let i = 0; i < questions.length; i++) {
+        const question = questions[i];
+        const checkedInputs = question.querySelectorAll("input[type=radio]:checked");
+
+        if (checkedInputs.length === 0) {
+            allQuestionsAnswered = false;
+            alert(`문항 ${i + 1}에 대해 답변을 선택해주세요.`);
+            break;
+        }
+    }
+
+    if (!allQuestionsAnswered) {
+        return;
+    }
+    // 검증 로직 추가 끝
+
     for (const input of quiz.querySelectorAll("input[type=radio]:checked")) {
         score[input.value]++;
     }
